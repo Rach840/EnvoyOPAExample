@@ -13,12 +13,12 @@ services:
       - --addr=localhost:8181
       - --diagnostic-addr=0.0.0.0:8282
       - --config-file=/config/config.yaml
-      - /policy/policy.rego
-      - --data /users/users.json
+      - /policy
+      - /data
     volumes:
       - ./opa/config.yaml:/config/config.yaml:ro
       - ./opa/policy.rego:/policy/policy.rego:ro
-      - ./opa/users.json:/users/users.json:ro
+      - ./opa/data:/data:ro
     restart: unless-stopped
     expose:
       - "9191" # gRPC ext_authz плагина
