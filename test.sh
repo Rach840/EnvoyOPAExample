@@ -16,15 +16,3 @@ curl -i -H "Authorization: Bearer $ALICE_TOKEN" \
   -d '{"firstname":"Charlie"}' \
   http://localhost:8000/people
 
-# 4) Админ POST /people — ОК
-curl -i -H "Authorization: Bearer $BOB_TOKEN" \
-  -H "content-type: application/json" \
-  -d '{"firstname":"Charlie"}' \
-  http://localhost:8000/people
-
-# 5) Демонстрация "умного" отказа
-# Если firstname совпадёт с sub (после декодирования), будет 403 с телом причины
-curl -i -H "Authorization: Bearer $BOB_TOKEN" \
-  -H "content-type: application/json" \
-  -d '{"firstname":"Bob"}' \
-  http://localhost:8000/people

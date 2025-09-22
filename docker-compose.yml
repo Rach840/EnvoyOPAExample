@@ -14,12 +14,14 @@ services:
       - --diagnostic-addr=0.0.0.0:8282
       - --config-file=/config/config.yaml
       - /policy/policy.rego
+      - --data /users/users.json
     volumes:
       - ./opa/config.yaml:/config/config.yaml:ro
       - ./opa/policy.rego:/policy/policy.rego:ro
+      - ./opa/users.json:/users/users.json:ro
     restart: unless-stopped
     expose:
-      - "9191"   # gRPC ext_authz плагина
+      - "9191" # gRPC ext_authz плагина
 
   envoy:
     image: envoyproxy/envoy:v1.30-latest
@@ -27,6 +29,6 @@ services:
     volumes:
       - ./envoy/envoy.yaml:/etc/envoy/envoy.yaml:ro
     ports:
-      - "8000:8000"   # входной порт
-      - "9901:9901"   # admin Envoy
+      - "8000:8000" # входной порт
+      - "9901:9901" # admin Envoy
     restart: unless-stopped
